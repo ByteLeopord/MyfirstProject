@@ -2,24 +2,28 @@
 
 class QuickSort{
 public:
+  int partition(vector<int>& A, int left, int right);
   void quicksort(vector<int>& A, int left, int right);
 };
-
-void QuickSort::quicksort(vector<int>& A, int left, int right){
-  if(left >= right) return;
+int QuickSort::partition(vector<int>& A, int left, int right){
   int temp = A[left];
   int pl = left, pr = right;
-  while(pl < pr && A[pr] > temp){
-    pr--;
+  while(pl < pr){
+    while(pl < pr && A[pr] > temp){
+      pr--;
+    }
+    if(pl < pr) A[pl] = A[pr];
+    while(pl < pr && A[pl] < temp){
+      pl++
+    }
+    if(pl < pr) A[pr] = A[pl];
   }
-  if(pl < pr) A[pl] = A[pr];
-  while(pl < pr && A[pl] < temp){
-    pl++
-  }
-  if(pl < pr) A[pr] = A[pl];
   int index = pl;
   A[index] = temp;
-  
-  quicksort(A, left, index);
-  quicksort(A, index+1, right);
+  return index;
+}
+void QuickSort::quicksort(vector<int>& A, int left, int right){
+  int partition = partition(A, left, right);
+  quicksort(A, left, partition);
+  quicksort(A, partition+1, right);
 }
