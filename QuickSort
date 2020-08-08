@@ -1,0 +1,25 @@
+#include<vector>
+
+class QuickSort{
+public:
+  void quicksort(vector<int>& A, int left, int right);
+};
+
+void QuickSort::quicksort(vector<int>& A, int left, int right){
+  if(left >= right) return;
+  int temp = A[left];
+  int pl = left, pr = right;
+  while(pl < pr && A[pr] > temp){
+    pr--;
+  }
+  if(pl < pr) A[pl] = A[pr];
+  while(pl < pr && A[pl] < temp){
+    pl++
+  }
+  if(pl < pr) A[pr] = A[pl];
+  int index = pl;
+  A[index] = temp;
+  
+  quicksort(A, left, index);
+  quicksort(A, index+1, right);
+}
